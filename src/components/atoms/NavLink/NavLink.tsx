@@ -23,7 +23,7 @@ function NavLink({
       {...props}
       to={to}
       className={clsx(
-        "rounded-lg px-4 py-2 text-sm",
+        "inline-block rounded-lg px-4 py-2 text-sm w-max",
         linkVariant[variant],
         className
       )}
