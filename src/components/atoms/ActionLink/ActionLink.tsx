@@ -1,30 +1,30 @@
 import clsx from "clsx";
 import type React from "react";
-import { linkVariant } from "./navLink.config";
+import { actionLinkVariant } from "./actionLink.config";
 import { Link, type LinkProps } from "react-router";
 
-type LinkVariant = keyof typeof linkVariant;
+type ActionLinkVariant = keyof typeof actionLinkVariant;
 
-type NavLinkProps = LinkProps & {
-  variant?: LinkVariant;
+type ActionLinkProps = LinkProps & {
+  variant?: ActionLinkVariant;
   children: React.ReactNode;
   to: string;
 };
 
-function NavLink({
+function ActionLink({
   variant = "primary",
   children,
   className,
   to,
   ...props
-}: NavLinkProps) {
+}: ActionLinkProps) {
   return (
     <Link
       {...props}
       to={to}
       className={clsx(
         "inline-block rounded-lg px-4 py-2 text-sm w-max",
-        linkVariant[variant],
+        actionLinkVariant[variant],
         className
       )}
     >
@@ -33,5 +33,5 @@ function NavLink({
   );
 }
 
-export { NavLink };
-export type { NavLinkProps };
+export { ActionLink };
+export type { ActionLinkProps };

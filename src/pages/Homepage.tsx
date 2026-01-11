@@ -11,7 +11,7 @@ function HomePage() {
             subtitle:
               "Manage your cryptocurrency, stocks, and cash investments in one easy-to-use dashboard.",
           }}
-          ctaProps={{
+          actionLinkProps={{
             to: "/login",
             variant: "secondary",
             children: "Get Started",
