@@ -1,9 +1,30 @@
+import React from "react";
 import { Button } from "../../components/atoms/Button";
 import { TextInput } from "../../components/atoms/TextInput";
+import { loginApi } from "../../api/auth";
 
 function Login() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const handleSubmit = ({
+    e,
+    email,
+    password,
+  }: {
+    e: React.FormEvent;
+    email: string;
+    password: string;
+  }) => {
+    e.preventDefault();
+    loginApi({ email, password }).then(console.log).catch(console.log);
+  };
+
   return (
-    <form className="flex gap-2 flex-col">
+    <form
+      className="flex gap-2 flex-col"
+      onSubmit={(e) => handleSubmit({ e, email, password })}
+    >
       <fieldset aria-describedby="login-help" className="flex gap-2 flex-col">
         <legend className="sr-only">Login details</legend>
         <label htmlFor="email" className="sr-only">
@@ -13,10 +34,10 @@ function Login() {
           id="email"
           name="email"
           type="email"
-          autoComplete="username"
           required
           aria-describedby="email-hint"
           placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="password" className="sr-only">
           Password
@@ -25,10 +46,10 @@ function Login() {
           id="password"
           name="password"
           type="password"
-          autoComplete="username"
           required
           aria-describedby="password-hint"
           placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
         />
       </fieldset>
       <Button type="submit" className="w-full max-w-none">
