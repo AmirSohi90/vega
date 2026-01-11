@@ -1,3 +1,4 @@
+import { Button } from "../../components/atoms/Button";
 import { TextInput } from "../../components/atoms/TextInput";
 
 function Login() {
@@ -30,6 +31,9 @@ function Login() {
           placeholder="Password"
         />
       </fieldset>
+      <Button type="submit" className="w-full max-w-none">
+        Login
+      </Button>
     </form>
   );
 }
