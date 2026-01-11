@@ -2,11 +2,13 @@ import React from "react";
 import { Button } from "../../components/atoms/Button";
 import { TextInput } from "../../components/atoms/TextInput";
 import { loginApi } from "../../api/auth";
+import { useLoading } from "../../context/LoadingContext/useLoading";
 
 function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const { setIsLoading } = useLoading();
 
   const handleSubmit = ({
     e,
@@ -18,11 +20,17 @@ function Login() {
     password: string;
   }) => {
     e.preventDefault();
+    setIsLoading(true);
+
     loginApi({ email, password })
-      .then(console.log)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.token);
+      })
       .catch((err) => {
         setErrorMessage(err.response.data.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (

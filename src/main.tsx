@@ -5,11 +5,14 @@ import "./index.css";
 import { RouterProvider } from "react-router";
 import { startMocks } from "./mocks/start";
 import { router } from "./router";
+import { AppProvider } from "./AppProvider";
 
 startMocks().then(() => {
   createRoot(document.getElementById("root")!).render(
     <StrictMode>
-      <RouterProvider router={router} />
+      <AppProvider>
+        <RouterProvider router={router} />
+      </AppProvider>
     </StrictMode>
   );
 });
