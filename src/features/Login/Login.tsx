@@ -1,14 +1,16 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import { Button } from "../../components/atoms/Button";
 import { TextInput } from "../../components/atoms/TextInput";
 import { loginApi } from "../../api/auth";
 import { useLoading } from "../../context/LoadingContext/useLoading";
 
 function Login() {
+  const navigate = useNavigate();
+  const { setIsLoading } = useLoading();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
-  const { setIsLoading } = useLoading();
 
   const handleSubmit = ({
     e,
@@ -21,11 +23,10 @@ function Login() {
   }) => {
     e.preventDefault();
     setIsLoading(true);
-
     loginApi({ email, password })
       .then((res) => {
-        console.log(res);
         localStorage.setItem("token", res.token);
+        navigate("/my-account");
       })
       .catch((err) => {
         setErrorMessage(err.response.data.message);
