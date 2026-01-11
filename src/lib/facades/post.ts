@@ -1,14 +1,16 @@
+import axios from "axios";
+
 function postFetch<TResponse, TBody>(
   url: string,
   body: TBody
 ): Promise<TResponse> {
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  }).then((res) => res.json());
+  return axios
+    .post<TResponse>(url, body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then((res) => res.data);
 }
 
 export { postFetch };

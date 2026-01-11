@@ -6,6 +6,7 @@ import { loginApi } from "../../api/auth";
 function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const handleSubmit = ({
     e,
@@ -17,7 +18,11 @@ function Login() {
     password: string;
   }) => {
     e.preventDefault();
-    loginApi({ email, password }).then(console.log).catch(console.log);
+    loginApi({ email, password })
+      .then(console.log)
+      .catch((err) => {
+        setErrorMessage(err.response.data.message);
+      });
   };
 
   return (
@@ -52,6 +57,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </fieldset>
+      {errorMessage && <p>{errorMessage}</p>}
       <Button type="submit" className="w-full max-w-none">
         Login
       </Button>

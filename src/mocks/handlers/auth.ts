@@ -13,6 +13,7 @@ const auth = [
       return HttpResponse.json({
         token: "mock-jwt-token",
         user: { email: "demo" },
+        status: 200,
       });
     }
 
