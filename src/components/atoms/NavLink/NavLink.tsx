@@ -34,3 +34,4 @@ function NavLink({
 }
 
 export { NavLink };
+export type { NavLinkProps };

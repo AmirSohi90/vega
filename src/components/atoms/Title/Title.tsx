@@ -28,3 +28,4 @@ function Title<T extends Heading = "h1">({
   );
 }
 export { Title };
+export type { TitleProps };
