@@ -16,6 +16,7 @@ type BaseAsset = {
   currentPrice: number;
   marketValue: number;
   lastUpdated: string;
+  colourAllocation: string;
 };
 
 type CryptoAsset = BaseAsset & {

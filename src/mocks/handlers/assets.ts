@@ -13,6 +13,7 @@ const assets: Asset[] = [
     marketValue: 32250.19,
     exchange: "Coinbase",
     lastUpdated: "2026-01-12T09:15:00Z",
+    colourAllocation: "#3FA7D6",
   },
   {
     id: "asset_002",
@@ -25,6 +26,7 @@ const assets: Asset[] = [
     marketValue: 28521.24,
     exchange: "Binance",
     lastUpdated: "2026-01-12T09:15:00Z",
+    colourAllocation: "#F25C54",
   },
   {
     id: "asset_003",
@@ -37,6 +39,7 @@ const assets: Asset[] = [
     marketValue: 9617.5,
     exchange: "NASDAQ",
     lastUpdated: "2026-01-11T21:00:00Z",
+    colourAllocation: "#7B2CBF",
   },
   {
     id: "asset_004",
@@ -49,6 +52,7 @@ const assets: Asset[] = [
     marketValue: 3576.0,
     exchange: "NASDAQ",
     lastUpdated: "2026-01-11T21:00:00Z",
+    colourAllocation: "#2EC4B6",
   },
   {
     id: "asset_005",
@@ -61,6 +65,7 @@ const assets: Asset[] = [
     marketValue: 8712.0,
     exchange: "NYSE",
     lastUpdated: "2026-01-11T21:00:00Z",
+    colourAllocation: "#1B1B3A",
   },
   {
     id: "asset_006",
@@ -73,6 +78,7 @@ const assets: Asset[] = [
     marketValue: 12500.0,
     account: "Checking Account",
     lastUpdated: "2026-01-12T08:00:00Z",
+    colourAllocation: "#FFBE0B",
   },
 ];
 

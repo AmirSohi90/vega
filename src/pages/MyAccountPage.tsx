@@ -9,18 +9,21 @@ import { getAssetsApi } from "../api/assets";
 import type { Asset, AssetType } from "../types/asset";
 import { getTotalValueByType } from "../utils/assets";
 import { TabBar } from "../components/molecules/TabBar";
+import {
+  tabs,
+  useSelectedTab,
+} from "../context/SelectedTabContext/SelectedTabContext";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function MyAccountPage() {
   const token = localStorage.getItem("token");
-  console.log({ token });
+  const { activeTab } = useSelectedTab();
   const [assets, setAssets] = React.useState<{
     assets: Asset[];
     byClass: Record<AssetType, number>;
   } | null>(null);
   const navigate = useNavigate();
-  console.log({ assets });
 
   React.useEffect(() => {
     if (!token) {
@@ -36,33 +39,45 @@ function MyAccountPage() {
     }
   }, []);
 
-  const data = {
+  const byClassData = {
     labels: Object.keys(assets?.byClass || {}),
     datasets: [
       {
         label: "Portfolio Allocation",
         data: Object.values(assets?.byClass || {}),
-        backgroundColor: [
-          "#f7931a", // crypto
-          "#4e73df", // stock
-          "#1cc88a", // etf
-          "#858796", // cash
-        ],
+        backgroundColor: ["#f7931a", "#4e73df", "#1cc88a", "#858796"],
         borderWidth: 1,
       },
     ],
   };
 
+  const byAssetData = {
+    labels: assets?.assets.map(({ name }) => name),
+    datasets: [
+      {
+        label: "Portfolio Allocation",
+        data: assets?.assets.map(({ marketValue }) => marketValue),
+        backgroundColor: assets?.assets.map(
+          ({ colourAllocation }) => colourAllocation
+        ),
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const doughnutData: Record<
+    (typeof tabs)[number]["id"],
+    typeof byAssetData | typeof byClassData
+  > = {
+    "by-asset-class": byClassData,
+    "by-asset": byAssetData,
+  };
+
   return (
     <PageSection>
       <Card variant="secondary">
-        <TabBar
-          tabs={[
-            { id: "by-asset-class", label: "By Asset Class" },
-            { id: "by-asset", label: "By Asset" },
-          ]}
-        />
-        <Doughnut data={data} />
+        <TabBar tabs={tabs} />
+        <Doughnut data={doughnutData[activeTab.id]} />
       </Card>
     </PageSection>
   );

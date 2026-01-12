@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { Navbar } from "../../molecules/Navbar";
-import { useLoading } from "../../../context/LoadingContext/useLoading";
 import { LoadingOverlay } from "../../atoms/LoadingOverlay";
+import { useLoading } from "../../../context/LoadingContext/LoadingContext";
 
 function AppLayout() {
   const { isLoading } = useLoading();
