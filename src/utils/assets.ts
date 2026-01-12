@@ -9,4 +9,10 @@ function getTotalValueByType(assets: Asset[]): Record<AssetType, number> {
   }, {} as Record<AssetType, number>);
 }
 
-export { getTotalValueByType };
+function getPortfolioTotal(assets: Asset[]): number {
+  return assets.reduce((acc, { marketValue }) => {
+    return (acc += marketValue);
+  }, 0);
+}
+
+export { getTotalValueByType, getPortfolioTotal };

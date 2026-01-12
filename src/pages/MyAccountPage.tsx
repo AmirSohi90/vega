@@ -1,20 +1,18 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-
 import { Card } from "../components/atoms/Card";
 import { PageSection } from "../components/atoms/PageSection";
 import React from "react";
 import { useNavigate } from "react-router";
 import { getAssetsApi } from "../api/assets";
 import type { Asset, AssetType } from "../types/asset";
-import { getTotalValueByType } from "../utils/assets";
+import { getPortfolioTotal, getTotalValueByType } from "../utils/assets";
 import { TabBar } from "../components/molecules/TabBar";
 import {
   tabs,
   useSelectedTab,
 } from "../context/SelectedTabContext/SelectedTabContext";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { DoughnutGraph } from "../components/templates/DoughnutGraph";
+import { Title } from "../components/atoms/Title";
+import { Subtitle } from "../components/atoms/Subtitle";
 
 function MyAccountPage() {
   const token = localStorage.getItem("token");
@@ -23,6 +21,7 @@ function MyAccountPage() {
     assets: Asset[];
     byClass: Record<AssetType, number>;
   } | null>(null);
+  const [portfolioTotal, setPortfolioTotal] = React.useState(0);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -34,6 +33,8 @@ function MyAccountPage() {
   React.useEffect(() => {
     if (token) {
       getAssetsApi({ token }).then((res) => {
+        const total = getPortfolioTotal(res);
+        setPortfolioTotal(total);
         setAssets({ assets: res, byClass: getTotalValueByType(res) });
       });
     }
@@ -77,7 +78,11 @@ function MyAccountPage() {
     <PageSection>
       <Card variant="secondary">
         <TabBar tabs={tabs} />
-        <Doughnut data={doughnutData[activeTab.id]} />
+        <Card className="w-full h-full">
+          <Title as="h3">Portfolio Balance</Title>
+          <Subtitle subtitle={`$${portfolioTotal}`} className="text-center" />
+          <DoughnutGraph data={doughnutData[activeTab.id]} />
+        </Card>
       </Card>
     </PageSection>
   );

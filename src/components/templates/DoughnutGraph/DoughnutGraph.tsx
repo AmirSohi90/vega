@@ -1,24 +1,32 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-
-import React from "react";
-import { useNavigate } from "react-router";
 import {
-  tabs,
-  useSelectedTab,
-} from "../../context/SelectedTabContext/SelectedTabContext";
-import type { Asset, AssetType } from "../../types/asset";
-import { getAssetsApi } from "../../api/assets";
-import { getTotalValueByType } from "../../utils/assets";
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  type ChartData,
+} from "chart.js";
+import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 type DoughnutGraphProps = {
-  token: string;
+  data: ChartData<"doughnut", number[] | undefined, string>;
 };
 
-function DoughnutGraph({ token }: DoughnutGraphProps) {
-  return <Doughnut data={} />;
+function DoughnutGraph({ data }: DoughnutGraphProps) {
+  return (
+    <Doughnut
+      data={data}
+      options={{
+        plugins: {
+          legend: {
+            position: "right",
+            align: "center",
+          },
+        },
+      }}
+    />
+  );
 }
 
 export { DoughnutGraph };
