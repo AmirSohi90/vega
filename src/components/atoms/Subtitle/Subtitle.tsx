@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 
 type SubtitleProps = React.ComponentPropsWithoutRef<"p"> & {
   subtitle: string;
@@ -7,7 +8,9 @@ type SubtitleProps = React.ComponentPropsWithoutRef<"p"> & {
 function Subtitle({ subtitle, className, ...props }: SubtitleProps) {
   return (
     <p
-      className={clsx("text-lg leading-relaxed text-gray-600", className)}
+      className={twMerge(
+        clsx("text-lg leading-relaxed text-gray-600", className)
+      )}
       {...props}
     >
       {subtitle}

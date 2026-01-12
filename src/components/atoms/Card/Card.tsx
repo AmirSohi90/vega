@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import { cardVariant } from "./card.config";
 
 type CardVariant = keyof typeof cardVariant;
@@ -16,10 +17,12 @@ function Card({
 }: CardProps) {
   return (
     <div
-      className={clsx(
-        "rounded-2xl border border-gray-200 flex flex-col gap-6 rounded-xl border p-6  w-full",
-        cardVariant[variant],
-        className
+      className={twMerge(
+        clsx(
+          "flex w-full flex-col gap-6 rounded-2xl border border-gray-200 p-6",
+          cardVariant[variant],
+          className
+        )
       )}
       {...props}
     >

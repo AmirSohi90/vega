@@ -9,19 +9,21 @@ import { TabBar } from "../components/molecules/TabBar";
 import {
   tabs,
   useSelectedTab,
+  type TabProps,
 } from "../context/SelectedTabContext/SelectedTabContext";
 import { DoughnutGraph } from "../components/templates/DoughnutGraph";
 import { Title } from "../components/atoms/Title";
-import { Subtitle } from "../components/atoms/Subtitle";
 import { PositionsTable } from "../components/organisms/PortfolioTable/PortfolioTable";
+
+type AssetState = {
+  assets: Asset[];
+  byClass: Record<AssetType, number>;
+};
 
 function MyAccountPage() {
   const token = localStorage.getItem("token");
   const { activeTab } = useSelectedTab();
-  const [assets, setAssets] = React.useState<{
-    assets: Asset[];
-    byClass: Record<AssetType, number>;
-  } | null>();
+  const [assets, setAssets] = React.useState<AssetState | null>();
   const [portfolioTotal, setPortfolioTotal] = React.useState(0);
   const navigate = useNavigate();
 
@@ -72,7 +74,7 @@ function MyAccountPage() {
   };
 
   const doughnutData: Record<
-    (typeof tabs)[number]["id"],
+    TabProps["id"],
     typeof byAssetData | typeof byClassData
   > = {
     "by-asset-class": byClassData,
@@ -88,7 +90,7 @@ function MyAccountPage() {
           <Title as="p">${portfolioTotal}</Title>
           <DoughnutGraph data={doughnutData[activeTab.id]} />
         </Card>
-        <Card className="w-full h-full">
+        <Card className="w-full h-full p-0">
           <PositionsTable data={assets.assets} />
         </Card>
       </Card>
@@ -97,3 +99,4 @@ function MyAccountPage() {
 }
 
 export { MyAccountPage };
+export type { AssetState };

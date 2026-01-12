@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { twMerge } from "tailwind-merge";
 import type React from "react";
 import { actionLinkVariant } from "./actionLink.config";
 import { Link, type LinkProps } from "react-router";
@@ -22,10 +23,12 @@ function ActionLink({
     <Link
       {...props}
       to={to}
-      className={clsx(
-        "inline-block rounded-lg px-4 py-2 text-sm w-max",
-        actionLinkVariant[variant],
-        className
+      className={twMerge(
+        clsx(
+          "inline-block rounded-lg px-4 py-2 text-sm w-max",
+          actionLinkVariant[variant],
+          className
+        )
       )}
     >
       {children}

@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type React from "react";
+import { twMerge } from "tailwind-merge";
 
 type Heading = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
@@ -17,9 +18,11 @@ function Title<T extends Heading = "h1">({
   const Component = as || "h1";
   return (
     <Component
-      className={clsx(
-        "text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl",
-        className
+      className={twMerge(
+        clsx(
+          "text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl",
+          className
+        )
       )}
       {...props}
     >

@@ -1,7 +1,7 @@
 import React from "react";
 
 type TabProps = {
-  id: string;
+  id: "by-asset-class" | "by-asset";
   label: string;
 };
 

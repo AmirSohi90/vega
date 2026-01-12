@@ -84,7 +84,6 @@ const assets: Asset[] = [
 
 const getAssets = http.get("/assets", ({ request }) => {
   const auth = request.headers.get("Authorization");
-  console.log({ auth });
 
   if (!auth) {
     return HttpResponse.json(

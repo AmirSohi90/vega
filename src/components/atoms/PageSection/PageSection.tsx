@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type React from "react";
+import { twMerge } from "tailwind-merge";
 
 const defaultElement = "section";
 
@@ -22,7 +23,9 @@ function PageSection<E extends React.ElementType = typeof defaultElement>({
   const Component = as ?? defaultElement;
   return (
     <Component
-      className={clsx("mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8", className)}
+      className={twMerge(
+        clsx("mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8", className)
+      )}
     >
       {children}
     </Component>

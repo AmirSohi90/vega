@@ -1,3 +1,7 @@
+import { TableHeader } from "../../atoms/TableHeader";
+import { TableDataCell } from "../../atoms/TableDataCell";
+import { TableRow } from "../../atoms/TableRow";
+
 export type AssetPosition = {
   id: string;
   type: "crypto" | "stock" | "etf" | "cash";
@@ -22,44 +26,35 @@ export function PositionsTable({ data }: Props) {
     }).format(value);
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white">
+    <div className="overflow-scroll rounded-xl border border-gray-200 bg-white">
       <table className="w-full border-collapse">
         <thead>
-          <tr className="border-b border-gray-200 text-left text-sm text-gray-500">
-            <th className="px-4 py-3 font-medium">Asset</th>
-            <th className="px-4 py-3 font-medium text-right">Quantity</th>
-            <th className="px-4 py-3 font-medium text-right">Price (USD)</th>
-            <th className="px-4 py-3 font-medium text-right">Value (USD)</th>
-          </tr>
+          <TableRow>
+            <TableHeader header="Asset" />
+            <TableHeader header="Quantity" />
+            <TableHeader header="Price (USD)" />
+            <TableHeader header="Value (USD)" />
+          </TableRow>
         </thead>
 
         <tbody>
           {data.map((asset) => (
-            <tr
-              key={asset.id}
-              className="border-b border-gray-100 last:border-0"
-            >
-              <td className="px-4 py-3">
+            <TableRow key={asset.id}>
+              <TableDataCell>
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-gray-900">
                     {asset.name}
                   </span>
                   <span className="text-xs text-gray-500">{asset.symbol}</span>
                 </div>
-              </td>
+              </TableDataCell>
 
-              <td className="px-4 py-3 text-right text-sm text-gray-900">
-                {asset.quantity}
-              </td>
+              <TableDataCell>{asset.quantity}</TableDataCell>
 
-              <td className="px-4 py-3 text-right text-sm text-gray-900">
-                {formatUSD(asset.currentPrice)}
-              </td>
+              <TableDataCell>{formatUSD(asset.currentPrice)}</TableDataCell>
 
-              <td className="px-4 py-3 text-right text-sm font-medium text-gray-900">
-                {formatUSD(asset.marketValue)}
-              </td>
-            </tr>
+              <TableDataCell>{formatUSD(asset.marketValue)}</TableDataCell>
+            </TableRow>
           ))}
         </tbody>
       </table>
