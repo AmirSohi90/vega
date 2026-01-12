@@ -1,5 +1,3 @@
-//TODO: ADD TESTS HERE
-
 import { PageSection } from "../components/atoms/PageSection";
 import { TitleBlock } from "../components/molecules/TitleBlock";
 
@@ -16,7 +14,7 @@ function HomePage() {
             "Manage your cryptocurrency, stocks, and cash investments in one easy-to-use dashboard.",
         }}
         actionLinkProps={{
-          to: isLoggedIn ? "/login" : "my-account",
+          to: isLoggedIn ? "/login" : "/my-account",
           variant: "secondary",
           children: "Get Started",
         }}
