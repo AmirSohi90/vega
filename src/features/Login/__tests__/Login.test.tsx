@@ -20,7 +20,7 @@ vi.mock("../../../context/LoadingContext/useLoading", () => ({
 }));
 
 const loginApiMock = vi.fn();
-vi.mock("../../../api/auth", () => ({
+vi.mock("../../../api/auth/auth", () => ({
   loginApi: (args: { email: string; password: string }) => loginApiMock(args),
 }));
 

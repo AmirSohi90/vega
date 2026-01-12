@@ -1,4 +1,4 @@
-import { postFetch } from "../lib/facades/post";
+import { postFetch } from "../../lib/facades/post";
 
 type LoginApiResponse = {
   token: string;

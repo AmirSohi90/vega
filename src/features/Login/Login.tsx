@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/atoms/Button";
 import { TextInput } from "../../components/atoms/TextInput";
-import { loginApi } from "../../api/auth";
+import { loginApi } from "../../api/auth/auth";
 import { useLoading } from "../../context/LoadingContext/useLoading";
 import { AlertBox } from "../../components/atoms/AlertBox";
 

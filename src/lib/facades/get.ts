@@ -2,19 +2,27 @@ import axios from "axios";
 
 type QueryValue = string | number | boolean | null | undefined;
 type QueryParams = Record<string, QueryValue>;
+type Headers = Record<string, string>;
 
-function getAxios<TResponse, TParams extends QueryParams>({
+function getAxios<
+  TResponse,
+  TParams extends QueryParams,
+  THeaders extends Headers
+>({
   url,
   params,
+  headers,
 }: {
   url: string;
   params: TParams;
+  headers: THeaders;
 }): Promise<TResponse> {
   return axios
     .get<TResponse>(url, {
       params: filterNullAndUndefinedParams(params),
       headers: {
         "Content-Type": "application/json",
+        ...headers,
       },
       paramsSerializer: (params) =>
         new URLSearchParams(params as Record<string, string>).toString(),
