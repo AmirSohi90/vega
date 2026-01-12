@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
-import { Login } from "../Login"; // adjust path as needed
+import { Login } from "../Login";
 
 const navigateMock = vi.fn();
 
