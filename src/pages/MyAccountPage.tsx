@@ -13,6 +13,7 @@ import {
 import { DoughnutGraph } from "../components/templates/DoughnutGraph";
 import { Title } from "../components/atoms/Title";
 import { Subtitle } from "../components/atoms/Subtitle";
+import { PositionsTable } from "../components/organisms/PortfolioTable/PortfolioTable";
 
 function MyAccountPage() {
   const token = localStorage.getItem("token");
@@ -20,7 +21,7 @@ function MyAccountPage() {
   const [assets, setAssets] = React.useState<{
     assets: Asset[];
     byClass: Record<AssetType, number>;
-  } | null>(null);
+  } | null>();
   const [portfolioTotal, setPortfolioTotal] = React.useState(0);
   const navigate = useNavigate();
 
@@ -39,6 +40,10 @@ function MyAccountPage() {
       });
     }
   }, []);
+
+  if (!assets) {
+    return null;
+  }
 
   const byClassData = {
     labels: Object.keys(assets?.byClass || {}),
@@ -80,8 +85,11 @@ function MyAccountPage() {
         <TabBar tabs={tabs} />
         <Card className="w-full h-full">
           <Title as="h3">Portfolio Balance</Title>
-          <Subtitle subtitle={`$${portfolioTotal}`} className="text-center" />
+          <Title as="p">${portfolioTotal}</Title>
           <DoughnutGraph data={doughnutData[activeTab.id]} />
+        </Card>
+        <Card className="w-full h-full">
+          <PositionsTable data={assets.assets} />
         </Card>
       </Card>
     </PageSection>

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import type React from "react";
 
-type Heading = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+type Heading = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
 type TitleProps<T extends Heading = "h1"> = {
   as?: T;
