@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Card } from "../components/atoms/Card";
 import { PageSection } from "../components/atoms/PageSection";
 import { TitleBlock } from "../components/molecules/TitleBlock";
-import { Login } from "../features/Login/Login";
+import { Login } from "../features/Login";
 
 function LoginPage() {
   const navigate = useNavigate();

@@ -1,9 +1,12 @@
+//TODO: ADD TESTS FOR THIS FILE
+
 import React from "react";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/atoms/Button";
 import { TextInput } from "../../components/atoms/TextInput";
 import { loginApi } from "../../api/auth";
 import { useLoading } from "../../context/LoadingContext/useLoading";
+import { AlertBox } from "../../components/atoms/AlertBox";
 
 function Login() {
   const navigate = useNavigate();
@@ -66,7 +69,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </fieldset>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <AlertBox alertMessage={errorMessage} />}
       <Button type="submit" className="w-full max-w-none">
         Login
       </Button>
