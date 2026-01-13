@@ -1,20 +1,7 @@
-# Plan of Action
+# Installation
 
-- I'll need three pages: Home, Login, Account
-- Tech stack should be pretty simple, I think besides React, TS and tailwind I should look into form validation using zod and react query as it supports auto caching
-- As you don't have access to endpoints use mock service worker
-- Use vitest and react testing library for testing, don't go overboard on testing, just enough to show that I'm capable of testing
-- Take accessibility into consideration too!
+Please pull the repo and run npm i to install dependencies. Afterwards run `npm run dev` to run the application.
 
-## Home Page
+## Tackling the issue
 
-This should be a pretty simple homepage, some welcome text, a navbar to login/sign up or if you are logged in to go to your account
-
-## Login
-
-- Simple page
-- Use zod for form validation and any sort of error handling on the front end
-- for now set the credentials as a local storage item but do take into consideration how to expand on that
-
-## Account Page
-
+I managed to do most of the task minus the line graph, due to time constaints. I wanted to show a variety of skills so I've added testing, mock service worker and atomic design. I also mocked up a design for the case study which I followed. The intention was to showcase my skillset rather than rush and finish the task in a sloppy manner. Of course there is still room for improvement as is the case with these matters but hopefully it gave you enough to showcase my skills. However, as I haven't finished the task I would understand if you do not want to proceed with the application
