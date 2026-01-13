@@ -1,6 +1,6 @@
 import { type AssetType, type Asset } from "../types/asset";
 
-function getTotalValueByType(assets: Asset[]): Record<AssetType, number> {
+function getTotalValueByAssetType(assets: Asset[]): Record<AssetType, number> {
   return assets.reduce((obj, { type, marketValue }) => {
     return {
       ...obj,
@@ -15,4 +15,11 @@ function getPortfolioTotal(assets: Asset[]): number {
   }, 0);
 }
 
-export { getTotalValueByType, getPortfolioTotal };
+const formatUSD = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2,
+  }).format(value);
+
+export { getTotalValueByAssetType, getPortfolioTotal, formatUSD };

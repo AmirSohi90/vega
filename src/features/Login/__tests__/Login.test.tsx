@@ -15,7 +15,7 @@ vi.mock("react-router", async (importOriginal) => {
 });
 
 const setIsLoadingMock = vi.fn();
-vi.mock("../../../context/LoadingContext/useLoading", () => ({
+vi.mock("../../../context/LoadingContext/LoadingContext", () => ({
   useLoading: () => ({ setIsLoading: setIsLoadingMock }),
 }));
 

@@ -1,30 +1,14 @@
 import { TableHeader } from "../../atoms/TableHeader";
 import { TableDataCell } from "../../atoms/TableDataCell";
 import { TableRow } from "../../atoms/TableRow";
+import type { Asset } from "../../../types/asset";
+import { formatUSD } from "../../../utils/assets";
 
-export type AssetPosition = {
-  id: string;
-  type: "crypto" | "stock" | "etf" | "cash";
-  symbol: string;
-  name: string;
-  quantity: number;
-  currency: string;
-  currentPrice: number;
-  marketValue: number;
+type AssetTableProps = {
+  data: Asset[];
 };
 
-type Props = {
-  data: AssetPosition[];
-};
-
-export function PositionsTable({ data }: Props) {
-  const formatUSD = (value: number) =>
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      maximumFractionDigits: 2,
-    }).format(value);
-
+function AssetTable({ data }: AssetTableProps) {
   return (
     <div className="overflow-scroll rounded-xl border border-gray-200 bg-white">
       <table className="w-full border-collapse">
@@ -61,3 +45,5 @@ export function PositionsTable({ data }: Props) {
     </div>
   );
 }
+
+export { AssetTable };

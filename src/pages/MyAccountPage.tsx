@@ -4,7 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { getAssetsApi } from "../api/assets";
 import type { Asset, AssetType } from "../types/asset";
-import { getPortfolioTotal, getTotalValueByType } from "../utils/assets";
+import { getPortfolioTotal, getTotalValueByAssetType } from "../utils/assets";
 import { TabBar } from "../components/molecules/TabBar";
 import {
   tabs,
@@ -13,19 +13,26 @@ import {
 } from "../context/SelectedTabContext/SelectedTabContext";
 import { DoughnutGraph } from "../components/templates/DoughnutGraph";
 import { Title } from "../components/atoms/Title";
-import { PositionsTable } from "../components/organisms/PortfolioTable/PortfolioTable";
-
-type AssetState = {
-  assets: Asset[];
-  byClass: Record<AssetType, number>;
-};
+import { AssetTable } from "../components/organisms/AssetTable";
+import { ClassTable } from "../components/organisms/ClassTable/ClassTable";
 
 function MyAccountPage() {
   const token = localStorage.getItem("token");
   const { activeTab } = useSelectedTab();
-  const [assets, setAssets] = React.useState<AssetState | null>();
+  const [assets, setAssets] = React.useState<Asset[] | null>(null);
   const [portfolioTotal, setPortfolioTotal] = React.useState(0);
   const navigate = useNavigate();
+
+  const assetsByClass = React.useMemo(() => {
+    if (assets) {
+      const totalValueByAssetType = getTotalValueByAssetType(assets);
+      return Object.entries(totalValueByAssetType).map(([key, total]) => ({
+        id: key as AssetType,
+        name: key as AssetType,
+        total,
+      }));
+    }
+  }, [assets]);
 
   React.useEffect(() => {
     if (!token) {
@@ -38,7 +45,7 @@ function MyAccountPage() {
       getAssetsApi({ token }).then((res) => {
         const total = getPortfolioTotal(res);
         setPortfolioTotal(total);
-        setAssets({ assets: res, byClass: getTotalValueByType(res) });
+        setAssets(res);
       });
     }
   }, []);
@@ -48,11 +55,11 @@ function MyAccountPage() {
   }
 
   const byClassData = {
-    labels: Object.keys(assets?.byClass || {}),
+    labels: assetsByClass?.map(({ name }) => name),
     datasets: [
       {
         label: "Portfolio Allocation",
-        data: Object.values(assets?.byClass || {}),
+        data: assetsByClass?.map(({ total }) => total),
         backgroundColor: ["#f7931a", "#4e73df", "#1cc88a", "#858796"],
         borderWidth: 1,
       },
@@ -60,12 +67,12 @@ function MyAccountPage() {
   };
 
   const byAssetData = {
-    labels: assets?.assets.map(({ name }) => name),
+    labels: assets?.map(({ name }) => name),
     datasets: [
       {
         label: "Portfolio Allocation",
-        data: assets?.assets.map(({ marketValue }) => marketValue),
-        backgroundColor: assets?.assets.map(
+        data: assets?.map(({ marketValue }) => marketValue),
+        backgroundColor: assets?.map(
           ({ colourAllocation }) => colourAllocation
         ),
         borderWidth: 1,
@@ -91,7 +98,11 @@ function MyAccountPage() {
           <DoughnutGraph data={doughnutData[activeTab.id]} />
         </Card>
         <Card className="w-full h-full p-0">
-          <PositionsTable data={assets.assets} />
+          {activeTab.id === "by-asset" ? (
+            <AssetTable data={assets} />
+          ) : (
+            <ClassTable data={assetsByClass} />
+          )}
         </Card>
       </Card>
     </PageSection>
@@ -99,4 +110,3 @@ function MyAccountPage() {
 }
 
 export { MyAccountPage };
-export type { AssetState };
