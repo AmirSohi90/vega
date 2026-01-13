@@ -92,18 +92,20 @@ function MyAccountPage() {
     <PageSection>
       <Card variant="secondary">
         <TabBar tabs={tabs} />
-        <Card className="w-full h-full">
-          <Title as="h3">Portfolio Balance</Title>
-          <Title as="p">${portfolioTotal}</Title>
-          <DoughnutGraph data={doughnutData[activeTab.id]} />
-        </Card>
-        <Card className="w-full h-full p-0">
-          {activeTab.id === "by-asset" ? (
-            <AssetTable data={assets} />
-          ) : (
-            <ClassTable data={assetsByClass} />
-          )}
-        </Card>
+        <div className="grid grid-cols-2 gap-2">
+          <Card className="w-full h-full col-span-2 md:col-span-1">
+            <Title as="h3">Portfolio Balance</Title>
+            <Title as="p">${portfolioTotal}</Title>
+            <DoughnutGraph data={doughnutData[activeTab.id]} />
+          </Card>
+          <Card className="w-full h-full p-0 col-span-2 md:col-span-1">
+            {activeTab.id === "by-asset" ? (
+              <AssetTable data={assets} />
+            ) : (
+              <ClassTable data={assetsByClass} />
+            )}
+          </Card>
+        </div>
       </Card>
     </PageSection>
   );

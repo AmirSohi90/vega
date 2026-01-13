@@ -10,7 +10,7 @@ type AssetTableProps = {
 
 function AssetTable({ data }: AssetTableProps) {
   return (
-    <div className="overflow-scroll rounded-xl border border-gray-200 bg-white">
+    <div className="overflow-scroll rounded-xl bg-white">
       <table className="w-full border-collapse">
         <thead>
           <TableRow>
